@@ -26,7 +26,8 @@ export const query_etc = extendType({
             type: "String",
             resolve: async (src, args, ctx, info) => {
                 try {
-                    return getModifierString(ctx.token);
+                    // return getModifierString(ctx.token);
+                    return ctx.tokenString;
                 } catch (error) {
                     return throwError(error, ctx);
                 }
