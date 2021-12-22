@@ -91,7 +91,6 @@ export const createContext = async (ctx: ExpressContext): Promise<Context> => {
         if (tokenString) {
             try {
                 verifiedToken = verify(tokenString, APP_SECRET) as IJWTTokenType;
-                console.log("verifiedToken, ", verifiedToken);
                 let someoneCheck = 0;
                 for (const type of issuerType) {
                     if (verifiedToken[type]) someoneCheck++;

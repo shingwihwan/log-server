@@ -12,7 +12,6 @@ export const queryTokenTest = subscriptionField("subscribeTest", {
         try {
             const token = getAuthorizationInfoFromToken(args.authorizationToken);
             console.log("토큰입니당", ctx.tokenString);
-            console.log("토큰입니당", ctx);
             if (token) {
                 ctx.token = token;
             }
@@ -35,7 +34,6 @@ export const queryTokenTest = subscriptionField("subscribeTest", {
     resolve: async (payload: Boolean, args, ctx, info) => {
         try {
             console.log("토큰입니당2", ctx.tokenString);
-            console.log("토큰입니당2", ctx);
             const token = getAuthorizationInfoFromToken(args.authorizationToken);
             if (token) {
                 ctx.token = token;
@@ -44,6 +42,23 @@ export const queryTokenTest = subscriptionField("subscribeTest", {
             return payload;
         } catch (error) {
             return throwError(error, ctx);
+        }
+    }
+});
+
+export const querytestQuery = queryField("testQuery", {
+    type: "Boolean",
+    resolve: async (src, args, ctx, info) => {
+        try {
+            console.log("queryToken: ", ctx.tokenString);
+            const token = getAuthorizationInfoFromToken(args.authorizationToken);
+            if (token) {
+                ctx.token = token;
+                console.log(ctx.token);
+            }
+            return true;
+        } catch (e) {
+            return throwError(e, ctx);
         }
     }
 })
