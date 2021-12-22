@@ -8,6 +8,7 @@ import { checkThumbnailExistAndCreateAtS3, fullUriPathToS3Key, s3KeyToFullUriPat
 export * from './auth'
 export * from './enum'
 export * from './site-manage'
+export * from './token'
 
 export const Upload = decorateType(GraphQLUpload, {
     sourceType: "FileUpload",

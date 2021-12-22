@@ -128,17 +128,17 @@ export const createContext = async (ctx: ExpressContext): Promise<Context> => {
             }
             else if (verifiedToken.adminId) {
                 // 관리자가 유효한지 prisma를 통해 검증
-                const admin = await prisma.admin.findUnique({ where: { id: verifiedToken.adminId }, select: { state: true } });
-                if (!admin || admin.state !== 'ACTIVE') {
-                    token = null;
-                }
-                else {
-                    token = {
-                        ...defaultTokenInfo,
-                        adminId: verifiedToken.adminId,
-                        // admin일 때 추가적으로 설정해줄 값 설정
-                    }
-                }
+                // const admin = await prisma.admin.findUnique({ where: { id: verifiedToken.adminId }, select: { state: true } });
+                // if (!admin || admin.state !== 'ACTIVE') {
+                //     token = null;
+                // }
+                // else {
+                //     token = {
+                //         ...defaultTokenInfo,
+                //         adminId: verifiedToken.adminId,
+                //         // admin일 때 추가적으로 설정해줄 값 설정
+                //     }
+                // }
             }
             else {
                 token = null;

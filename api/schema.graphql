@@ -7,13 +7,6 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
-input EnumSiteInformationTypeFilter {
-  equals: SiteInformationType
-  in: [SiteInformationType!]
-  not: NestedEnumSiteInformationTypeFilter
-  notIn: [SiteInformationType!]
-}
-
 """newFile 있는 경우 newFile 우선"""
 input FileUpdateInput {
   existingFile: FileUri
@@ -61,30 +54,9 @@ type Mutation {
   verifyPhoneByEveryone(phoneNumber: String!, verificationNumber: String!): Int!
 }
 
-input NestedEnumSiteInformationTypeFilter {
-  equals: SiteInformationType
-  in: [SiteInformationType!]
-  not: NestedEnumSiteInformationTypeFilter
-  notIn: [SiteInformationType!]
-}
-
-input NestedStringFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  not: NestedStringFilter
-  notIn: [String!]
-  startsWith: String
-}
-
 type Query {
   selectSiteInformationByEveryone(id: String!): SiteInformation!
-  selectSiteInformationsByEveryone(cursor: SiteInformationWhereUniqueInput, orderBy: [SiteInformationOrderByWithRelationInput!], skip: Int, take: Int, where: SiteInformationWhereInput): [SiteInformation!]!
+  tokenTest: Boolean
   whoami: String
 }
 
@@ -94,35 +66,12 @@ type SignInType {
 }
 
 type SiteInformation {
-  content: String!
-
-  """해당 필드의 설명"""
-  description: String!
   file: FileUri
   files: [FileUri]
-
-  """
-  시작값(id의 startsWith() 적용으로 판별 가능한) 기준
-   - `TC_` : 제목-내용 형태의 자료 (titleContentInfo 필드 참조)
-   - `HTML_` : HTML 형태의 파일 (file 필드 참조)
-   - `FILE_` : 기타 파일 1개 (file 필드 참조)
-   - `FILES_` : 기타 파일 0~n개 (files 필드 참조)
-   - `URL_` : 외부 URL (링크 설정 안 된 경우 null)(url 필드 참조)
-   - `TEXT_` : 단순 텍스트 (content 필드 참조)
-  """
-  id: String!
   titleContentInfo: [SiteInformationTitleContentData!]
-  type: SiteInformationType!
 
   """URL_ 의 경우, 링크 설정이 안 되어 있으면 null로 리턴합니다."""
   url: String
-}
-
-input SiteInformationOrderByWithRelationInput {
-  content: SortOrder
-  description: SortOrder
-  id: SortOrder
-  type: SortOrder
 }
 
 type SiteInformationTitleContentData {
@@ -133,43 +82,6 @@ type SiteInformationTitleContentData {
 input SiteInformationTitleContentDataInput {
   content: String!
   title: String!
-}
-
-enum SiteInformationType {
-  ALL
-}
-
-input SiteInformationWhereInput {
-  AND: [SiteInformationWhereInput!]
-  NOT: [SiteInformationWhereInput!]
-  OR: [SiteInformationWhereInput!]
-  content: StringFilter
-  description: StringFilter
-  id: StringFilter
-  type: EnumSiteInformationTypeFilter
-}
-
-input SiteInformationWhereUniqueInput {
-  id: String
-}
-
-enum SortOrder {
-  asc
-  desc
-}
-
-input StringFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  not: NestedStringFilter
-  notIn: [String!]
-  startsWith: String
 }
 
 """The `Upload` scalar type represents a file upload."""

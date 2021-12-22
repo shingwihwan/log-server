@@ -46,75 +46,17 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  EnumSiteInformationTypeFilter: { // input type
-    equals?: NexusGenEnums['SiteInformationType'] | null; // SiteInformationType
-    in?: NexusGenEnums['SiteInformationType'][] | null; // [SiteInformationType!]
-    not?: NexusGenInputs['NestedEnumSiteInformationTypeFilter'] | null; // NestedEnumSiteInformationTypeFilter
-    notIn?: NexusGenEnums['SiteInformationType'][] | null; // [SiteInformationType!]
-  }
   FileUpdateInput: { // input type
     existingFile?: NexusGenScalars['FileUri'] | null; // FileUri
     newFile?: NexusGenScalars['Upload'] | null; // Upload
-  }
-  NestedEnumSiteInformationTypeFilter: { // input type
-    equals?: NexusGenEnums['SiteInformationType'] | null; // SiteInformationType
-    in?: NexusGenEnums['SiteInformationType'][] | null; // [SiteInformationType!]
-    not?: NexusGenInputs['NestedEnumSiteInformationTypeFilter'] | null; // NestedEnumSiteInformationTypeFilter
-    notIn?: NexusGenEnums['SiteInformationType'][] | null; // [SiteInformationType!]
-  }
-  NestedStringFilter: { // input type
-    contains?: string | null; // String
-    endsWith?: string | null; // String
-    equals?: string | null; // String
-    gt?: string | null; // String
-    gte?: string | null; // String
-    in?: string[] | null; // [String!]
-    lt?: string | null; // String
-    lte?: string | null; // String
-    not?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
-    notIn?: string[] | null; // [String!]
-    startsWith?: string | null; // String
-  }
-  SiteInformationOrderByWithRelationInput: { // input type
-    content?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    description?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    type?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   SiteInformationTitleContentDataInput: { // input type
     content: string; // String!
     title: string; // String!
   }
-  SiteInformationWhereInput: { // input type
-    AND?: NexusGenInputs['SiteInformationWhereInput'][] | null; // [SiteInformationWhereInput!]
-    NOT?: NexusGenInputs['SiteInformationWhereInput'][] | null; // [SiteInformationWhereInput!]
-    OR?: NexusGenInputs['SiteInformationWhereInput'][] | null; // [SiteInformationWhereInput!]
-    content?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    description?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    type?: NexusGenInputs['EnumSiteInformationTypeFilter'] | null; // EnumSiteInformationTypeFilter
-  }
-  SiteInformationWhereUniqueInput: { // input type
-    id?: string | null; // String
-  }
-  StringFilter: { // input type
-    contains?: string | null; // String
-    endsWith?: string | null; // String
-    equals?: string | null; // String
-    gt?: string | null; // String
-    gte?: string | null; // String
-    in?: string[] | null; // [String!]
-    lt?: string | null; // String
-    lte?: string | null; // String
-    not?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
-    notIn?: string[] | null; // [String!]
-    startsWith?: string | null; // String
-  }
 }
 
 export interface NexusGenEnums {
-  SiteInformationType: "ALL"
-  SortOrder: "asc" | "desc"
 }
 
 export interface NexusGenScalars {
@@ -138,11 +80,7 @@ export interface NexusGenObjects {
     accessToken: string; // String!
     refreshToken: string; // String!
   }
-  SiteInformation: { // root type
-    description: string; // String!
-    id: string; // String!
-    type: NexusGenEnums['SiteInformationType']; // SiteInformationType!
-  }
+  SiteInformation: {};
   SiteInformationTitleContentData: { // root type
     content: string; // String!
     title: string; // String!
@@ -157,7 +95,7 @@ export interface NexusGenUnions {
 
 export type NexusGenRootTypes = NexusGenObjects
 
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
+export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Image: { // field return type
@@ -174,7 +112,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     selectSiteInformationByEveryone: NexusGenRootTypes['SiteInformation']; // SiteInformation!
-    selectSiteInformationsByEveryone: NexusGenRootTypes['SiteInformation'][]; // [SiteInformation!]!
+    tokenTest: boolean | null; // Boolean
     whoami: string | null; // String
   }
   SignInType: { // field return type
@@ -182,13 +120,9 @@ export interface NexusGenFieldTypes {
     refreshToken: string; // String!
   }
   SiteInformation: { // field return type
-    content: string; // String!
-    description: string; // String!
     file: NexusGenScalars['FileUri'] | null; // FileUri
     files: Array<NexusGenScalars['FileUri'] | null> | null; // [FileUri]
-    id: string; // String!
     titleContentInfo: NexusGenRootTypes['SiteInformationTitleContentData'][] | null; // [SiteInformationTitleContentData!]
-    type: NexusGenEnums['SiteInformationType']; // SiteInformationType!
     url: string | null; // String
   }
   SiteInformationTitleContentData: { // field return type
@@ -212,7 +146,7 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     selectSiteInformationByEveryone: 'SiteInformation'
-    selectSiteInformationsByEveryone: 'SiteInformation'
+    tokenTest: 'Boolean'
     whoami: 'String'
   }
   SignInType: { // field return type name
@@ -220,13 +154,9 @@ export interface NexusGenFieldTypeNames {
     refreshToken: 'String'
   }
   SiteInformation: { // field return type name
-    content: 'String'
-    description: 'String'
     file: 'FileUri'
     files: 'FileUri'
-    id: 'String'
     titleContentInfo: 'SiteInformationTitleContentData'
-    type: 'SiteInformationType'
     url: 'String'
   }
   SiteInformationTitleContentData: { // field return type name
@@ -259,13 +189,6 @@ export interface NexusGenArgTypes {
     selectSiteInformationByEveryone: { // args
       id: string; // String!
     }
-    selectSiteInformationsByEveryone: { // args
-      cursor?: NexusGenInputs['SiteInformationWhereUniqueInput'] | null; // SiteInformationWhereUniqueInput
-      orderBy?: NexusGenInputs['SiteInformationOrderByWithRelationInput'][] | null; // [SiteInformationOrderByWithRelationInput!]
-      skip?: number | null; // Int
-      take?: number | null; // Int
-      where?: NexusGenInputs['SiteInformationWhereInput'] | null; // SiteInformationWhereInput
-    }
   }
 }
 
@@ -279,7 +202,7 @@ export type NexusGenObjectNames = keyof NexusGenObjects;
 
 export type NexusGenInputNames = keyof NexusGenInputs;
 
-export type NexusGenEnumNames = keyof NexusGenEnums;
+export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 

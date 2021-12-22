@@ -16,7 +16,8 @@ export const throwError = (error: any, ctx: Context | null) => {
         const info = getDebugInfo(ctx);
         console.log({ error, info, timestamp: new Date().toString() })
     }
-
+    if (error instanceof ApolloError) {
+    }
     throw error;
 }
 
