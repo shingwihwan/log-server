@@ -11,9 +11,9 @@ export const queryTokenTest = subscriptionField("subscribeTest", {
     subscribe: async (root, args, ctx) => {
         try {
             const token = getAuthorizationInfoFromToken(args.authorizationToken);
+            console.log("토큰입니당", ctx.token)
             if (token) {
                 ctx.token = token;
-                console.log("토큰입니당", ctx.token)
             }
 
             console.log("subscribeTest connect : ", `user_1`);
@@ -33,6 +33,7 @@ export const queryTokenTest = subscriptionField("subscribeTest", {
     },
     resolve: async (payload: Boolean, args, ctx, info) => {
         try {
+            console.log("토큰입니당", ctx.token)
             const token = getAuthorizationInfoFromToken(args.authorizationToken);
             if (token) {
                 ctx.token = token;
