@@ -34,6 +34,7 @@ type Image {
 type Mutation {
   renewToken(accessToken: String!, refreshToken: String!): SignInType
   requestPhoneVerificationByEveryone(phoneNumber: String!): Boolean!
+  testMutation: Boolean
   updateSiteInformationByAdmin(
     """
     id가 HTML_ , URL_ , TEXT_ 로 시작하는 경우 필수
@@ -56,7 +57,7 @@ type Mutation {
 
 type Query {
   selectSiteInformationByEveryone(id: String!): SiteInformation!
-  tokenTest: Boolean
+  testQuery: Boolean
   whoami: String
 }
 
@@ -82,6 +83,10 @@ type SiteInformationTitleContentData {
 input SiteInformationTitleContentDataInput {
   content: String!
   title: String!
+}
+
+type Subscription {
+  subscribeTest: Boolean
 }
 
 """The `Upload` scalar type represents a file upload."""

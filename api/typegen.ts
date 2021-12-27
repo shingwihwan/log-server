@@ -85,6 +85,7 @@ export interface NexusGenObjects {
     content: string; // String!
     title: string; // String!
   }
+  Subscription: {};
 }
 
 export interface NexusGenInterfaces {
@@ -107,12 +108,13 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     renewToken: NexusGenRootTypes['SignInType'] | null; // SignInType
     requestPhoneVerificationByEveryone: boolean; // Boolean!
+    testMutation: boolean | null; // Boolean
     updateSiteInformationByAdmin: boolean; // Boolean!
     verifyPhoneByEveryone: number; // Int!
   }
   Query: { // field return type
     selectSiteInformationByEveryone: NexusGenRootTypes['SiteInformation']; // SiteInformation!
-    tokenTest: boolean | null; // Boolean
+    testQuery: boolean | null; // Boolean
     whoami: string | null; // String
   }
   SignInType: { // field return type
@@ -129,6 +131,9 @@ export interface NexusGenFieldTypes {
     content: string; // String!
     title: string; // String!
   }
+  Subscription: { // field return type
+    subscribeTest: boolean | null; // Boolean
+  }
 }
 
 export interface NexusGenFieldTypeNames {
@@ -141,12 +146,13 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     renewToken: 'SignInType'
     requestPhoneVerificationByEveryone: 'Boolean'
+    testMutation: 'Boolean'
     updateSiteInformationByAdmin: 'Boolean'
     verifyPhoneByEveryone: 'Int'
   }
   Query: { // field return type name
     selectSiteInformationByEveryone: 'SiteInformation'
-    tokenTest: 'Boolean'
+    testQuery: 'Boolean'
     whoami: 'String'
   }
   SignInType: { // field return type name
@@ -162,6 +168,9 @@ export interface NexusGenFieldTypeNames {
   SiteInformationTitleContentData: { // field return type name
     content: 'String'
     title: 'String'
+  }
+  Subscription: { // field return type name
+    subscribeTest: 'Boolean'
   }
 }
 

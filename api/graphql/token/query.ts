@@ -19,7 +19,7 @@ export const queryTokenTest = subscriptionField("subscribeTest", {
             console.log("subscribeTest connect : ", `user_1`);
             return withFilter(
                 (root, args, ctx) => withCancel(ctx.pubsub.asyncIterator(`company_1`), () => { console.log("subscribeTest disconnect : ", `user_1`); }),
-                (payload: Boolean, args: ArgsValue<"Subscription", "subscribeEstimatesByUser">, ctx: Context) => {
+                (payload: Boolean, args: ArgsValue<"Subscription", "subscribeTest">, ctx: Context) => {
                     if (args.estimateId) {
                         return payload === true;
                     }
