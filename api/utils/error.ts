@@ -84,11 +84,11 @@ export function getResolveInfo(info: any) {
 export const throwError = (error: any, ctx: Context | null, info: any) => {
 
     // password 부분 마스킹 정규식
-    const masking: string = ctx?.req.body.query;
-    const indexPass = masking.indexOf("password");
-    const regex = /password: "/g
-    // console.log(regex.exec(masking));
-    console.log(indexPass);
+    // const masking: string = ctx?.req.body.query;
+    // const indexPass = masking.indexOf("password");
+    // const regex = /password: "/g
+    // // console.log(regex.exec(masking));
+    // console.log(indexPass);
 
     const eMessage: string = error.message.trim();
     if (ctx) {

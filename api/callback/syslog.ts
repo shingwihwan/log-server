@@ -1,9 +1,6 @@
 import { Request as Req, Response as Res } from "express"
-import * as util from 'util';
-import fetch from 'node-fetch';
-import { prisma } from "../utils/context";
 
-export const syslog = async (req: Req, res: Res) => {
+export const syslog = (req: Req, res: Res) => {
     try {
         const projectName = req.params['0'] ? req.params['0'] : "unknown";
 
@@ -35,26 +32,26 @@ export const syslog = async (req: Req, res: Res) => {
         }
 
         // 잔디에 알림 보내기
-        await fetch("https://wh.jandi.com/connect-api/webhook/25110651/41643a7ba9566cee942a76060f9b804a", {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/vnd.tosslab.jandi-v2+json"
-            },
-            body: JSON.stringify(data)
-        }).catch(error => {
-            console.log(error);
-            return 500;
-        });
+        // await fetch("https://wh.jandi.com/connect-api/webhook/25110651/41643a7ba9566cee942a76060f9b804a", {
+        //     method: "post",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Accept": "application/vnd.tosslab.jandi-v2+json"
+        //     },
+        //     body: JSON.stringify(data)
+        // }).catch(error => {
+        //     console.log(error);
+        //     return 500;
+        // });
 
         // DB에 Error 정보 Insert
-        await prisma.logfiles.create({
-            data: {
-                serverName: projectName,
-                error: JSON.stringify(req.body),
-                createAt: new Date(),
-            }
-        });
+        // await prisma.logfiles.create({
+        //     data: {
+        //         serverName: projectName,
+        //         error: JSON.stringify(req.body),
+        //         createAt: new Date(),
+        //     }
+        // });
 
         return 200;
     } catch (error) {

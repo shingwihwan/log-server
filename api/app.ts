@@ -13,7 +13,6 @@ import { graphqlUploadExpress } from 'graphql-upload'
 import { startScheduler } from './scheduler'
 import schema from './schema'
 import { syslog } from './callback/syslog';
-import { CustomError } from './utils/error';
 
 
 
@@ -43,9 +42,9 @@ app.use(express.json({ limit: '100mb' }));
 const http = HTTP.createServer(app);
 app.use(express.static(join(__dirname, 'static')));
 
-app.route("/logger/*").post(async (req, res) => {
+app.route("/logger/*").post((req, res) => {
     try {
-        const response: number = await syslog(req, res);
+        const response: number = syslog(req, res);
         res.sendStatus(response);
     } catch (error) {
         if (error instanceof ApolloError) {
