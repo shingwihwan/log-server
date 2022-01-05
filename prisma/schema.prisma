@@ -8,9 +8,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model logfiles {
-  id         Int       @id @default(autoincrement())
-  serverName String?   @map("server_name") @db.VarChar(30)
-  error      String?
-  createAt   DateTime? @map("create_at") @db.Date
+model Logfiles {
+  id          Int       @id @default(autoincrement())
+  serverName  String?   @map("server_name") @db.VarChar(30)
+  errorInfo   String?   @map("error_info") @db.VarChar(2000)
+  debugInfo   String?   @map("debug_info") @db.VarChar(1000)
+  resolveInfo String?   @db.VarChar(1000)
+  createdAt   DateTime? @map("created_at") @db.Timestamp(6)
+
+  @@map("logfiles")
 }

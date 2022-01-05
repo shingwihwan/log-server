@@ -42,9 +42,9 @@ app.use(express.json({ limit: '100mb' }));
 const http = HTTP.createServer(app);
 app.use(express.static(join(__dirname, 'static')));
 
-app.route("/logger/*").post((req, res) => {
+app.route("/logger/*").post(async (req, res) => {
     try {
-        const response: number = syslog(req, res);
+        const response: number = await syslog(req, res);
         res.sendStatus(response);
     } catch (error) {
         if (error instanceof ApolloError) {
@@ -60,6 +60,10 @@ app.route("/logger/*").post((req, res) => {
             })
         }
     }
+});
+
+app.get("/hello", (req, res) => {
+    res.send("hello shin");
 });
 
 const PORT = process.env.PORT || 3000

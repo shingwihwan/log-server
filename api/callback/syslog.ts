@@ -1,6 +1,9 @@
-import { Request as Req, Response as Res } from "express"
 
-export const syslog = (req: Req, res: Res) => {
+import { Request as Req, Response as Res } from "express"
+import fetch from "node-fetch";
+import { prisma } from "../utils/context";
+
+export const syslog = async (req: Req, res: Res) => {
     try {
         const projectName = req.params['0'] ? req.params['0'] : "unknown";
 
@@ -11,10 +14,6 @@ export const syslog = (req: Req, res: Res) => {
         const txtDebugInfo = debugInfo.text.text;
         const txtErrorInfo = errorInfo.text.text;
         const txtResolveInfo = resolveInfo.text.text;
-
-        console.log(debugInfo);
-        console.log(errorInfo);
-        console.log(resolveInfo);
 
         // 잔디에 알림보내기
         const data = {
@@ -44,12 +43,14 @@ export const syslog = (req: Req, res: Res) => {
         //     return 500;
         // });
 
-        // DB에 Error 정보 Insert
+        // // DB에 Error 정보 Insert
         // await prisma.logfiles.create({
         //     data: {
         //         serverName: projectName,
-        //         error: JSON.stringify(req.body),
-        //         createAt: new Date(),
+        //         errorInfo: JSON.stringify(errorInfo),
+        //         debugInfo: JSON.stringify(debugInfo),
+        //         resolveInfo: JSON.stringify(resolveInfo),
+        //         createdAt: new Date(),
         //     }
         // });
 

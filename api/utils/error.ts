@@ -38,25 +38,21 @@ async function errorToLogServer(e: Object, debugInfo: any, resolveInfo: any) {
         serverName = process.env.DATABASE_URL?.split("/").pop();
     }
 
-    try {
-
-        const response = await fetch("http://localhost:3000/logger/" + serverName, {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        if (response.status >= 200 && response.status <= 299 || response.ok) {
-            const jsonResponse = await response.json();
-            return jsonResponse;
+    await fetch("http://localhost:3000/logger/" + serverName, {
+        method: "POST",
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(res => {
+        if (res.status >= 200 && res.status <= 299 || res.ok) {
+            return res.status;
         } else {
-            console.log(response.status, response.statusText);
             throw new Error('Network response was not ok.');
         }
-    } catch (error) {
-        return error;
-    }
+    }).catch((err) => {
+        console.log(err);
+    });
 }
 
 
@@ -93,7 +89,7 @@ export const throwError = (error: any, ctx: Context | null, info: any) => {
     const eMessage: string = error.message.trim();
     if (ctx) {
         const infoPath = info.path;
-        if (eMessage.startsWith("존재하지")) {
+        if (error instanceof MatchPasswordError) {
             console.log({ error, timestamp: new Date().toString(), infoPath });
         } else {
             const debugInfo = getDebugInfo(ctx);
@@ -129,6 +125,22 @@ export class AuthenticationExpiredError extends ApolloError {
     }
 }
 
+export class InvalidUserInputError extends ApolloError {
+    constructor(message: string) {
+        super(message, 'INVALID_USER_INPUT');
+
+        Object.defineProperty(this, 'name', { value: 'InvalidError' });
+    }
+}
+
+export class MatchPasswordError extends ApolloError {
+    constructor(message: string) {
+        super(message, 'NOT_MATCH_PASSWORD');
+
+        Object.defineProperty(this, 'name', { value: 'MatchPasswordError' });
+    }
+}
+
 
 export const errors = {
     etc: (msg: string, code?: string) => new CustomError(msg, code ?? "BAD_USER_INPUT"),
@@ -137,4 +149,5 @@ export const errors = {
     forbidden: new ForbiddenError('접근이 거부되었습니다.'),
     noSuchData: new UserInputError('요청한 데이터가 존재하지 않습니다.'),
     invalidUser: new UserInputError('존재하지 않는 아이디이거나 비밀번호가 틀렸습니다.'),
+    notMatchPassword: new MatchPasswordError('비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요.'),
 }
