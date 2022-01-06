@@ -31,28 +31,28 @@ export const syslog = async (req: Req, res: Res) => {
         }
 
         // 잔디에 알림 보내기
-        // await fetch("https://wh.jandi.com/connect-api/webhook/25110651/41643a7ba9566cee942a76060f9b804a", {
-        //     method: "post",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Accept": "application/vnd.tosslab.jandi-v2+json"
-        //     },
-        //     body: JSON.stringify(data)
-        // }).catch(error => {
-        //     console.log(error);
-        //     return 500;
-        // });
+        await fetch("https://wh.jandi.com/connect-api/webhook/25110651/41643a7ba9566cee942a76060f9b804a", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/vnd.tosslab.jandi-v2+json"
+            },
+            body: JSON.stringify(data)
+        }).catch(error => {
+            console.log(error);
+            return 500;
+        });
 
         // // DB에 Error 정보 Insert
-        // await prisma.logfiles.create({
-        //     data: {
-        //         serverName: projectName,
-        //         errorInfo: JSON.stringify(errorInfo),
-        //         debugInfo: JSON.stringify(debugInfo),
-        //         resolveInfo: JSON.stringify(resolveInfo),
-        //         createdAt: new Date(),
-        //     }
-        // });
+        await prisma.logfiles.create({
+            data: {
+                serverName: projectName,
+                errorInfo: JSON.stringify(errorInfo),
+                debugInfo: JSON.stringify(debugInfo),
+                resolveInfo: JSON.stringify(resolveInfo),
+                createdAt: new Date(),
+            }
+        });
 
         return 200;
     } catch (error) {
